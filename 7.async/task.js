@@ -3,6 +3,7 @@ class AlarmClock {
         this.alarmCollection = [];
         this.intervalId = null;
     }
+
     addClock(time, callback) {
         if (time == undefined || callback == undefined) {
             throw new Error('Отсутствуют обязательные аргументы');
@@ -12,12 +13,15 @@ class AlarmClock {
         }
         this.alarmCollection.push({ time, callback, canCall: true });
     }
+
     removeClock(time) {
         this.alarmCollection = this.alarmCollection.filter(call => call.time !== time);
     }
+
     getCurrentFormattedTime() {
         return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     }
+
     start() {
         if (this.intervalId) {
             return;
@@ -29,13 +33,16 @@ class AlarmClock {
             }
         }), 1000);
     }
+
     stop() {
         clearInterval(this.intervalId);
         this.intervalId = null;
     }
+
     resetAllCalls() {
         this.alarmCollection.forEach(call => call.canCall = true);
     }
+    
     clearAlarms() {
         this.stop();
         this.alarmCollection = [];
